@@ -1,0 +1,55 @@
+.connection-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  font-size: 12px;
+  font-weight: 500;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.connected {
+  background-color: var(--success-color);
+  color: white;
+}
+
+.connecting {
+  background-color: var(--warning-color);
+  color: white;
+}
+
+.disconnected {
+  background-color: var(--error-color);
+  color: white;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.8;
+}
+
+.label {
+  flex: 1;
+}
+
+.offline-btn {
+  padding: 2px 10px;
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.2);
+  color: inherit;
+  font-size: 11px;
+  font-weight: 600;
+  transition: background 0.2s;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.35);
+  }
+}

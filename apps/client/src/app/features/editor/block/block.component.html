@@ -1,0 +1,51 @@
+<div
+  class="block"
+  [attr.data-block-id]="blockId()"
+  [class]="'block-' + block().type"
+>
+  @switch (block().type) {
+    @case ('divider') {
+      <hr class="divider" />
+    }
+    @case ('todo') {
+      <div class="todo-row">
+        <input
+          type="checkbox"
+          class="todo-checkbox"
+          [checked]="block().props['checked']"
+          (change)="onCheckboxChange($event)"
+        />
+        <div
+          #contentEl
+          class="block-content todo-content"
+          [class.checked]="block().props['checked']"
+          contenteditable="true"
+          [attr.data-placeholder]="placeholder()"
+          (input)="onInput()"
+          (keydown)="onKeydown($event)"
+          (focus)="onFocus()"
+        ></div>
+      </div>
+    }
+    @default {
+      <div
+        #contentEl
+        class="block-content"
+        [class]="contentClass()"
+        contenteditable="true"
+        [attr.data-placeholder]="placeholder()"
+        (input)="onInput()"
+        (keydown)="onKeydown($event)"
+        (focus)="onFocus()"
+      ></div>
+    }
+  }
+
+  @for (user of blockCursors(); track user.clientId) {
+    <div class="remote-cursor" [style.border-color]="user.color">
+      <span class="cursor-label" [style.background]="user.color">
+        {{ user.name }}
+      </span>
+    </div>
+  }
+</div>

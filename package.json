@@ -1,0 +1,21 @@
+{
+  "name": "local-first-system",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Local-First Notion Lite — block-based document editor with CRDT synchronization",
+  "workspaces": [
+    "apps/*",
+    "libs/*"
+  ],
+  "scripts": {
+    "client": "npm run start --workspace=apps/client",
+    "server": "npm run start:dev --workspace=apps/server",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "build:client": "npm run build --workspace=apps/client",
+    "build:server": "npm run build --workspace=apps/server"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0",
+    "typescript": "~5.6.0"
+  }
+}

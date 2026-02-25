@@ -1,0 +1,18 @@
+<div class="toolbar">
+  <button
+    class="tool-btn"
+    [disabled]="!canUndo()"
+    (click)="undo.emit()"
+    title="Undo (Ctrl+Z)"
+  >
+    &#x21A9;
+  </button>
+  <button
+    class="tool-btn"
+    [disabled]="!canRedo()"
+    (click)="redo.emit()"
+    title="Redo (Ctrl+Shift+Z)"
+  >
+    &#x21AA;
+  </button>
+</div>

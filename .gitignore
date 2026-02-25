@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.angular/
+.cache/
+*.tsbuildinfo
+.env
+.DS_Store
+coverage/
+tmp/

@@ -1,0 +1,41 @@
+<div class="page">
+  <header class="header">
+    <h1 class="logo">Local-First Notion Lite</h1>
+    <p class="subtitle">Block-based editor with CRDT synchronization</p>
+  </header>
+
+  <main class="content">
+    <div class="toolbar-row">
+      <h2 class="section-title">Documents</h2>
+      <button class="btn-primary" (click)="createDocument()">
+        + New Document
+      </button>
+    </div>
+
+    @if (documents().length === 0) {
+      <div class="empty-state">
+        <div class="empty-icon">&#128196;</div>
+        <p class="empty-text">No documents yet</p>
+        <p class="empty-hint">Create your first document to get started</p>
+      </div>
+    } @else {
+      <div class="doc-grid">
+        @for (doc of documents(); track doc.id) {
+          <button class="doc-card" (click)="openDocument(doc.id)">
+            <div class="doc-title">{{ doc.title || 'Untitled' }}</div>
+            <div class="doc-meta">
+              {{ formatDate(doc.updatedAt) }}
+            </div>
+            <button
+              class="doc-delete"
+              (click)="deleteDocument(doc.id, $event)"
+              title="Delete document"
+            >
+              &times;
+            </button>
+          </button>
+        }
+      </div>
+    }
+  </main>
+</div>

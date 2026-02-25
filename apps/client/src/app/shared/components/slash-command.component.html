@@ -1,0 +1,20 @@
+<div class="slash-menu" #menu>
+  <div class="slash-header">Block type</div>
+  @for (cmd of filteredCommands(); track cmd.type) {
+    <button
+      class="slash-item"
+      [class.active]="selectedIndex() === $index"
+      (click)="select(cmd)"
+      (mouseenter)="selectedIndex.set($index)"
+    >
+      <span class="slash-icon">{{ cmd.icon }}</span>
+      <div class="slash-text">
+        <span class="slash-label">{{ cmd.label }}</span>
+        <span class="slash-desc">{{ cmd.description }}</span>
+      </div>
+    </button>
+  }
+  @if (filteredCommands().length === 0) {
+    <div class="slash-empty">No matching blocks</div>
+  }
+</div>

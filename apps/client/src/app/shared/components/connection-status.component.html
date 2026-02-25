@@ -1,0 +1,7 @@
+<div class="connection-bar" [class]="statusClass()">
+  <span class="dot"></span>
+  <span class="label">{{ statusLabel() }}</span>
+  <button class="offline-btn" (click)="toggleOffline()">
+    {{ connectionService.isSimulatedOffline() ? 'Go Online' : 'Simulate Offline' }}
+  </button>
+</div>

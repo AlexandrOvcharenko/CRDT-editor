@@ -1,0 +1,67 @@
+<div class="editor-page">
+  <div class="editor-header">
+    <button class="back-btn" (click)="goBack()">&larr; Back</button>
+    <app-presence />
+    <app-toolbar
+      [canUndo]="docService.canUndo()"
+      [canRedo]="docService.canRedo()"
+      (undo)="docService.undo()"
+      (redo)="docService.redo()"
+    />
+  </div>
+
+  @if (docService.isLoaded()) {
+    <div class="editor-content">
+      <input
+        class="title-input"
+        [value]="docService.title()"
+        (input)="onTitleChange($event)"
+        placeholder="Untitled"
+      />
+
+      <div
+        class="blocks-container"
+        cdkDropList
+        (cdkDropListDropped)="onBlockDrop($event)"
+      >
+        @for (blockId of docService.blockIds(); track blockId) {
+          <div class="block-wrapper" cdkDrag>
+            <div class="drag-handle" cdkDragHandle>
+              <span class="drag-icon">&#x2630;</span>
+            </div>
+            <app-block
+              [blockId]="blockId"
+              [block]="docService.blocks().get(blockId)!"
+              (contentChanged)="onContentChanged(blockId, $event)"
+              (typeChanged)="onTypeChanged(blockId, $event)"
+              (propChanged)="onPropChanged(blockId, $event)"
+              (enterPressed)="onEnterPressed(blockId)"
+              (deletePressed)="onDeletePressed(blockId)"
+              (slashTriggered)="onSlashTriggered(blockId, $event)"
+              (focused)="onBlockFocused(blockId)"
+            />
+          </div>
+        }
+      </div>
+
+      <button class="add-block-btn" (click)="addBlockAtEnd()">
+        + Add a block
+      </button>
+    </div>
+
+    @if (showSlashMenu()) {
+      <div
+        class="slash-menu-anchor"
+        [style.top.px]="slashMenuPosition().top"
+        [style.left.px]="slashMenuPosition().left"
+      >
+        <app-slash-command
+          (commandSelected)="onSlashCommand($event)"
+          (closed)="showSlashMenu.set(false)"
+        />
+      </div>
+    }
+  } @else {
+    <div class="loading">Loading document...</div>
+  }
+</div>

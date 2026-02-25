@@ -1,0 +1,19 @@
+<div class="presence">
+  @for (user of awarenessService.remoteUsers(); track user.clientId) {
+    <div
+      class="avatar"
+      [style.background]="user.color"
+      [title]="user.name"
+    >
+      {{ user.name.charAt(0).toUpperCase() }}
+    </div>
+  }
+
+  <div
+    class="avatar local"
+    [style.background]="awarenessService.localUser().color"
+    [title]="awarenessService.localUser().name + ' (you)'"
+  >
+    {{ awarenessService.localUser().name.charAt(0).toUpperCase() }}
+  </div>
+</div>
