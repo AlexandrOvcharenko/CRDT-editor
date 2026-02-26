@@ -4,7 +4,6 @@ import { ConnectionStatusComponent } from './shared/components/connection-status
 
 @Component({
   selector: 'app-root',
-  standalone: true,
   imports: [RouterOutlet, ConnectionStatusComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',

@@ -9,15 +9,11 @@ import { DocumentService, DocumentSnapshot } from '../../core/services/document.
   templateUrl: './document-list.component.html',
   styleUrl: './document-list.component.scss',
 })
-export class DocumentListComponent implements OnInit {
+export class DocumentListComponent {
   private readonly docService = inject(DocumentService);
   private readonly router = inject(Router);
 
-  readonly documents = signal<DocumentSnapshot[]>([]);
-
-  ngOnInit() {
-    this.documents.set(this.docService.getStoredDocumentList());
-  }
+  readonly documents = signal<DocumentSnapshot[]>(this.docService.getStoredDocumentList());
 
   createDocument() {
     const id = uuidv4();

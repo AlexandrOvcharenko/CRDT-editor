@@ -1,4 +1,4 @@
-import { Injectable, signal } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { WebsocketProvider } from 'y-websocket';
 import * as Y from 'yjs';
 import { ConnectionService } from './connection.service';
@@ -6,11 +6,10 @@ import { ConnectionService } from './connection.service';
 @Injectable({ providedIn: 'root' })
 export class SyncService {
   private provider: WebsocketProvider | null = null;
-
+  private readonly connectionService = inject(ConnectionService);
   private readonly _syncStatus = signal<'disconnected' | 'connecting' | 'connected'>('disconnected');
   readonly syncStatus = this._syncStatus.asReadonly();
 
-  constructor(private connectionService: ConnectionService) {}
 
   connect(docId: string, ydoc: Y.Doc): void {
     this.disconnect();

@@ -1,4 +1,4 @@
-import { Injectable, signal, NgZone } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { SyncService } from './sync.service';
 
 @Injectable({ providedIn: 'root' })
@@ -9,17 +9,13 @@ export class ConnectionService {
   readonly isOnline = this._isOnline.asReadonly();
   readonly isSimulatedOffline = this._isSimulatedOffline.asReadonly();
 
-  constructor(private ngZone: NgZone) {
+  constructor() {
     this.setupListeners();
   }
 
   private setupListeners(): void {
-    window.addEventListener('online', () => {
-      this.ngZone.run(() => this._isOnline.set(true));
-    });
-    window.addEventListener('offline', () => {
-      this.ngZone.run(() => this._isOnline.set(false));
-    });
+    window.addEventListener('online', () => this._isOnline.set(true));
+    window.addEventListener('offline', () => this._isOnline.set(false));
   }
 
   toggleSimulatedOffline(syncService: SyncService): void {

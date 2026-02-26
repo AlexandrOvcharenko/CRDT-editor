@@ -2,7 +2,7 @@
 
 ## Project
 
-Local-First Notion Lite — block-based document editor with CRDT synchronization.
+Local-First Notion Lite — text editor with CRDT synchronization.
 - **Client**: `apps/client/` — Angular 19 standalone, signals, no NgModules
 - **Server**: `apps/server/` — NestJS, WebSocket Gateway
 - **Shared types**: `libs/shared/src/` — imported as `@local-first/shared`
@@ -24,15 +24,10 @@ npm run build:server
 
 **CRDT model** (Yjs, `Y.Doc` per document):
 - `meta` → `Y.Map` (title, timestamps)
-- `blockOrder` → `Y.Array<string>` (ordered block IDs)
-- `blocks` → `Y.Map<Y.Map>` keyed by block ID, each containing:
-  - `type` → plain value
-  - `content` → `Y.Text`
-  - `props` → `Y.Map`
-  - `children` → `Y.Array<string>`
+- `content` → `Y.Text` (document body)
 
 **Client service layer** (`apps/client/src/app/core/services/`):
-- `DocumentService` — Y.Doc lifecycle, block CRUD, UndoManager
+- `DocumentService` — Y.Doc lifecycle, content/text CRUD, UndoManager
 - `PersistenceService` — y-indexeddb wrapper
 - `SyncService` — WebsocketProvider (y-websocket), includes BroadcastChannel for multi-tab
 - `AwarenessService` — presence (name, color, cursor)
@@ -52,5 +47,4 @@ npm run build:server
 |------|---------|
 | `apps/client/src/app/core/services/document.service.ts` | Central CRDT API for UI |
 | `apps/server/src/sync/sync.gateway.ts` | Yjs sync + awareness protocol |
-| `libs/shared/src/types/block.types.ts` | `BlockType` enum and defaults |
 | `docs/adr/` | Architecture Decision Records |

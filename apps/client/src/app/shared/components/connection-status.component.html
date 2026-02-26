@@ -1,4 +1,4 @@
-<div class="connection-bar" [class]="statusClass()">
+<div class="connection-bar" [ngClass]="statusClass()">
   <span class="dot"></span>
   <span class="label">{{ statusLabel() }}</span>
   <button class="offline-btn" (click)="toggleOffline()">
